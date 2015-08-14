@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html ng-app="grammarApp">
+<head>
+    <title>Grammar App</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+</head>
+<body>
+
+    <!-- menu starts here -->
+    <div ng-controller="menuCtrl">
+
+        <!-- search -->
+        <input type="text" ng-model="searchText" class="form-control" placeholder="search..." ng-keydown="expandAccordion()">
+        <accordion close-others="oneAtATime">
+            <accordion-group heading="{{category.name}}" ng-repeat="category in categories | filter:searchText"
+                                                         is-open="isSearching">
+                <ul ng-repeat="subcategory in category.subcategories | filter:searchText">
+                    <li><a href="#" ng-click="selectSubcategory(subcategory);setBottomMenu()"
+                                    data-toggle="modal"
+                                    data-target="#myModal">{{ subcategory.name }}</a></li>
+                </ul>
+            </accordion-group>
+        </accordion>
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title" id="myModalLabel">{{ selectedSubcategory.name }}</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <!-- tab controller -->
+                        <ul class="nav nav-tabs" ng-controller="PanelController as panel">
+                            <li role="presentation" ng-class="{active:isSelected(1)}">
+                                <a href="#" ng-click="selectTab(1)">Situation</a>
+                            </li>
+                            <li role="presentation" ng-class="{active:isSelected(2)}">
+                                <a href="#" ng-click="selectTab(2)">Explanation</a>
+                            </li>
+                            <li role="presentation" ng-class="{active:isSelected(3)}">
+                                <a href="#" ng-click="selectTab(3)">See also</a>
+                            </li>
+                            <div ng-show="isSelected(1)">
+                                <div style="clear:both"></div>
+                                <p>{{ selectedSubcategory.text }}</p>
+                            </div>
+                            <div ng-show="isSelected(2)">
+                                <div style="clear:both"></div>
+                                <p><strong>Details</strong></p>
+                                <p>Power: +3</p>
+                                <p>Mana: +4</p>
+                            </div>
+                            <div ng-show="isSelected(3)">
+                                <div style="clear:both"></div>
+                                <p><strong>Properties</strong></p>
+                                <p>Lorem ipsum dolor</p>
+                            </div>
+                        </ul>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" close-button>Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <bottommenu></bottommenu>
+        </footer>
+
+    </div>
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.27/angular.min.js"></script>
+    <script type="text/javascript" src="ui-bootstrap-tpls-0.12.0.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+</body>
+</html>
