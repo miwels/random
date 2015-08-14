@@ -1,0 +1,36 @@
+<div ng-controller="exerciseTemplateCtrl as e">
+    <h1>Exercises</h1>
+    <p>
+        <a ng-click="displayPrevExercise()"
+           ng-hide="isFirstExercise"
+           class="prevExercise">prev</a>
+        &nbsp;&nbsp;
+        <a ng-click="displayNextExercise()"
+           ng-hide="isLastExercise"
+           class="nextExercise">next</a></p>
+    <div ng-repeat="exercise in firstExercise" ng-show="isDisplayed(exercise.d.id)">
+       <div id="InstructionsDiv" class="Instructions"
+            ng-bind-html="parseHtml(exercise.d.i)"></div>
+
+        <!-- subtitle -->
+        <div class="ExerciseSubtitle clearfix"
+             ng-bind-html="parseHtml(exercise.d.gq)"></div>
+
+        <div ng-repeat="(questionId, question) in exercise.q">
+            <div data-question-id="{{ questionId }}">
+                <div id="OneByOneReadout" class="question-nav-wrap clearfix">
+                </div>
+                <div id="MainDiv" class="StdDiv">
+                    <div ng-bind-html="parseHtml(question.d.q)"></div>
+                    {{ question.d.q }}
+                    <!-- audio question -->
+                    <p ng-if="exercise.q[questionId].d.au === 1">
+                        <audio controls="" id="audio">
+                            <source ng-src="{{ exercise.q[questionId].d.auf }}" type="audio/mp3"></audio></p>
+                    <!-- question text (need to parse [x] as inputs) -->
+                    <p><button id="submit" class="branded" ng-click="checkAnswers(exercise.d.id)">Check</button></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
