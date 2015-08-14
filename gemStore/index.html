@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html ng-app="store">
+<head>
+	<title></title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+</head>
+<body ng-controller="StoreController as store">
+    <div ng-repeat="products in store.products">
+        <h1>{{ products.name }}</h1>
+        <h2>{{ products.price }}</h2>
+        <p>{{ products.description }}</p>
+
+        <button ng-show="products.canPurchase">Purchase</button>
+
+        <ul class="nav nav-tabs" ng-controller="PanelController as panel">
+            <li role="presentation" ng-class="{active:panel.isSelected(1)}">
+                <a href="#" ng-click="panel.showTab(1)">Home</a>
+            </li>
+            <li role="presentation" ng-class="{active:panel.isSelected(2)}">
+                <a href="#" ng-click="panel.showTab(2)">Profile</a>
+            </li>
+            <li role="presentation" ng-class="{active:panel.isSelected(3)}">
+                <a href="#" ng-click="panel.showTab(3)">Messages</a>
+            </li>
+            <div ng-show="panel.isSelected(1)">
+                <div style="clear:both"></div>
+                <p><strong>Reviews</strong></p>
+                <p>Lorem ipsum dolor</p>
+            </div>
+            <div ng-show="panel.isSelected(2)">
+                <div style="clear:both"></div>
+                <p><strong>Details</strong></p>
+                <p>Power: +3</p>
+                <p>Mana: +4</p>
+            </div>
+            <div ng-show="panel.isSelected(3)">
+                <div style="clear:both"></div>
+                <p><strong>Properties</strong></p>
+                <p>Lorem ipsum dolor</p>
+            </div>
+        </ul>
+        <product-review></product-review>
+    </div>
+
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>
+    <script type="text/javascript" src="products.js"></script>
+    <script type="text/javascript" src="script.js"></script>
+</body>
+</html>

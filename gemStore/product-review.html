@@ -1,0 +1,14 @@
+<div>
+    <p><strong>Name: </strong>{{ review.name }}</p>
+    <p><strong>Rating: </strong>{{ review.rating }}</p>
+    <p><strong>Description: </strong>{{ review.description }}</p>
+
+    <form name="reviewForm" ng-submit="review.addReview(product)" novalidate>
+        <p><input type="text" ng-model="review.name" required></p>
+        <p><select  ng-options="rating for rating in [5,4,3,2,1]"
+                    ng-model="review.rating" required></select></p>
+        <p><textarea ng-model="review.description" required></textarea></p>
+        <p><button>Submit</button>
+        <div>reviewForm is {{ reviewForm.$valid }}</div>
+    </form>
+</div>
